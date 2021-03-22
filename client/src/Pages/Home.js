@@ -1,54 +1,35 @@
 import React, { useState, useEffect, useCallback } from "react";
 import SimpleStorageContract from "../contracts/SimpleStorage.json";
-import getWeb3 from "../getWeb3";
 
 function Home(props) {
-    // state = { storageValue: 0, web3: null, accounts: null, contract: null , newValue: "" };
     const [storageValue, setStorageValue] = useState("Test")
-    const [web3, setWeb3] = useState(null)
-    const [accounts, setAccounts] = useState([])
     const [contract, setContract] = useState(null)
     const [newValue, setNewValue] = useState("")
 
     useEffect(() => {
+        console.log("props")
+        console.log(props)
         try {
-            getWeb3()
-            .then(web3 => {
-                setWeb3(web3);
-
-                web3.eth.getAccounts()
-                .then(accounts => {
-
-                    setAccounts(accounts);
-                    const contractInstance = new web3.eth.Contract(
-                        SimpleStorageContract.abi,
-                        '0xe4859E3dd8D92a32FEc2bCDC1ca87d9a4e36d00d',
-                        {
-                            from: accounts[0],
-                            gasPrice: 1000,
-                            gas: 100000
-                        }
-                    );
-                    contractInstance.deploy({
-                        data: SimpleStorageContract.bytecode,
-                        arguments: ["Boss"] // default name
-                    });
-                    setContract(contractInstance);
-                    runExample(contractInstance);
-                })
-
-                .catch(e => {
-                    console.log("Error getting account: " + e)
-                })
-            })
-            .catch(e => {
-                console.log("Error getting web3: " + e);
-            })
+            const contractInstance = new props.web3.eth.Contract(
+                SimpleStorageContract.abi,
+                '0xe4859E3dd8D92a32FEc2bCDC1ca87d9a4e36d00d',
+                {
+                    from: props.accounts[0],
+                    gasPrice: 1000,
+                    gas: 100000
+                }
+            );
+            contractInstance.deploy({
+                data: SimpleStorageContract.bytecode,
+                arguments: ["Boss"] // default name
+            });
+            setContract(contractInstance);
+            runExample(contractInstance);
         } catch (error) {
             console.log(error);
         }
 
-    }, []);
+    }, [props.web3, props.accounts]);
 
     const handleChange = useCallback(
         (event) => {
@@ -63,7 +44,7 @@ function Home(props) {
         
             try {
                 console.log(newValue)
-                await contract.methods.set(newValue).send(newValue, { from: accounts[0]});
+                await contract.methods.set(newValue).send(newValue, { from: props.accounts[0]});
             } 
             catch(error) {
                 console.log(error)
@@ -72,7 +53,7 @@ function Home(props) {
             const response = await contract.methods.get().call();
             setStorageValue(response) 
         },
-        [contract, newValue, accounts],
+        [contract, newValue, props.accounts],
     );   
 
     const runExample = async (contract) => {
@@ -84,7 +65,7 @@ function Home(props) {
     };
 
 
-    if (!web3) {
+    if (!props.web3) {
         return <div>Loading Web3, accounts, and contract...</div>;
     }
     return (
