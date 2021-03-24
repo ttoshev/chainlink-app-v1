@@ -1,10 +1,10 @@
 import { Route, BrowserRouter as Router } from "react-router-dom" 
 import React, { useReducer, useEffect} from "react";
-import Home from "./Pages/Home"
-import About from "./Pages/About"
-import NavigationBar from './Components/NavigationBar';
-import rootReducer from "./Reducers/rootReducer"
-import types from "./Reducers/types"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import NavigationBar from './components/NavigationBar';
+import rootReducer from "./reducers/rootReducer"
+import types from "./reducers/types"
 import getWeb3 from "./getWeb3";
 
 import "./App.css";
