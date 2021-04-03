@@ -28,8 +28,6 @@ function App(props) {
         web3.eth.getAccounts()
         .then(accounts => {
           dispatch({type: types.UPDATE_ACCOUNTS, value: accounts})
-          console.log("state")
-          console.log(state)
         })
         .catch(e => {
             console.log("Error getting account: " + e)
@@ -38,7 +36,7 @@ function App(props) {
     } catch(e) {
       console.log('Error: ' + e)
     }
-  }, [])
+  }, [state])
 
   return(
     <Router>

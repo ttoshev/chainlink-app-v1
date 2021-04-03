@@ -94,38 +94,6 @@ function About(props) {
                     </Row>
                 </Container>
             </div>
-            <div style={styles.ourTeamContainer}>
-                <Container>
-                    <Row>
-                        <Col xs={12}>
-                            <div style={styles.alignCenter}>
-                                <h2 style={styles.sectionHeading}>Our Team</h2>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={12} md={6}>
-                            <div style={styles.teamMember1}>
-                                <div style={styles.alignCenter}>
-                                    <img style={styles.partnerImage} alt="" src={require("../public/static/tosho-toshev-portrait-min-2.jpg")}/>
-
-                                    <h4 style={styles.partnerHeading}>Tosho Toshev</h4>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col xs={12} md={6}>
-                            <div style={styles.teamMember2}>
-                                <div style={styles.alignCenter}>
-                                    <img style={styles.partnerImage} alt="" src={require("../public/static/amr-resisze-2.jpeg")}/>
-
-                                    <h4 style={styles.partnerHeading}>Amr Zahran</h4>
-
-                                </div>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
         </div>
 
 
