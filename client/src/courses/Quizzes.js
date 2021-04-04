@@ -1,4 +1,4 @@
-import AnswerTypes from './AnswerTypes'
+import AnswerTypes from './AnswerTypes.js'
 
 const Quizzes = [
     {

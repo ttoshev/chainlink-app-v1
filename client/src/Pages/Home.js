@@ -3,9 +3,9 @@ import SimpleStorageContract from "../contracts/SimpleStorage.json";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Quizzes from '../courses/Quizzes';
+import Quizzes from '../courses/Quizzes.js';
 import Card from 'react-bootstrap/Card';
-import AnswerTypes from '../courses/AnswerTypes';
+import AnswerTypes from '../courses/AnswerTypes.js';
 import Button from 'react-bootstrap/Button';
 
 
