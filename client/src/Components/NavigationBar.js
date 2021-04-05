@@ -32,18 +32,18 @@ function NavigationBar() {
 
     return (
         <Navbar bg="dark" expand="lg" variant="dark">
-            <Container>
-                <Row>                        
-                    <Col xs={12} lg={4} lgOffset={8} >
+            {/* <Container> */}
+                {/* <Row>                         */}
+                    {/* <Col xs={12} lg={4} lgOffset={8} > */}
                         <div className="logo-navbar">
                             <img style={styles.logo} alt="" src={require("../public/static/edu4all.png")}/>
                             <h1 style={styles.appName}>
                                 EDU4ALL
                             </h1>
                         </div> 
-                    </Col>
-                </Row>
-            </Container>
+                    {/* </Col> */}
+                {/* </Row> */}
+            {/* </Container> */}
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
@@ -75,7 +75,8 @@ const stylesXs = {
     },
     appName: {
         color: '#f9f9f9',
-        fontSize:'1.4rem'
+        fontSize:'1.4rem',
+        marginLeft: '10px'
     },
     centerSmall: {
         textAlign: 'center',
@@ -83,7 +84,7 @@ const stylesXs = {
     },
     logo: {
         maxWidth: '32px',
-        borderRadius: 5
+        borderRadius: 5,
     }
 }
 
@@ -101,6 +102,7 @@ const stylesLg = {
         color: '#f9f9f9',
         fontSize:'2.5rem',
         marginLeft: '16px',
+        marginLeft: '10px'
     },
     centerSmall: {
         textAlign: 'right',
@@ -108,7 +110,8 @@ const stylesLg = {
     },
     logo: {
         maxWidth: '64px',
-        borderRadius: 5
+        borderRadius: 5,
+        marginRight: 5
     }
 }
 

@@ -31,9 +31,17 @@ body {
   display: flex;
   justify-content: space-evenly;
 }
+.centeredTitle {
+  margin: 16px auto;
+  margin-left: -100px;
+}
 .courses {
   max-width: 760px;
   margin: 0 auto;
+}
+.inline {
+  display:flex;
+  justify-content: flex-start;
 }
 
 .score-section {

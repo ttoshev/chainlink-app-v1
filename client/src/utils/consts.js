@@ -1,0 +1,7 @@
+const consts = {
+    EDU_FOR_ALL_COURSE_CONTRACT : "0x6038dF29cb9b2462dDF17bDF52ec14B1c2980566",
+    EDU_FOR_ALL_COURSE_CONTRACT_MIN_GAS: "1000000",
+    KEYHASH : "0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311",
+}
+
+export default consts;
