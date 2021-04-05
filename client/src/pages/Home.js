@@ -54,10 +54,10 @@ function Home(props) {
                     gas: 100000
                 }
             );
-            contractInstance.deploy({
-                data: EduForAllCourse.bytecode,
-                arguments: [consts.KEYHASH] // default name
-            })
+            // contractInstance.deploy({
+            //     data: EduForAllCourse.bytecode,
+            //     arguments: [consts.KEYHASH] // default name
+            // })
             // .then((deployedInstance) => {
                 // let qc = []
                 // for (var i = 0; i < Quizzes.length; i++ ){
