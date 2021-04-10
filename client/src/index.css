@@ -31,19 +31,41 @@ body {
   display: flex;
   justify-content: space-evenly;
 }
+
 .centeredTitle {
   margin: 16px auto;
-  margin-left: -100px;
+}
+.centered-vid {
+  margin: 0 auto;
+  margin-top: 32px;
+  margin-bottom: 32px;
 }
 .courses {
   max-width: 760px;
   margin: 0 auto;
 }
+body {
+  background-image: url('./public/static/Ellipse-2.png'),
+                    /* url('./public/static/Ellipse-3.png'), */
+                    url('./public/static/Ellipse-4.png');
+  /* background-position: 100% 20%, 0% 50%, 50% 100%; */
+  background-position: 100% 20%, 50% 100%;
+  /* background-size: 520px 1113px, 520px 1113px, 100% 942px;  */
+  background-size: 260px 720px, 100% 456px;
+  background-repeat: no-repeat; 
+  min-height: 1200px;
+}
+.how-it-works-section {
+  text-align: left;
+
+}
 .inline {
   display:flex;
   justify-content: flex-start;
 }
-
+.simple-flex {
+  display: flex;
+}
 .score-section {
   display: flex;
   font-size: 24px;
@@ -93,6 +115,16 @@ body {
 .confirm-btn {
   margin: 8px;
   border-radius: 10px;
+}
+.exit-quiz-btn {
+  margin: 8px auto;
+  /* margin-right: 175px; */
+  border-radius: 10px;
+  max-width: 124px;
+}
+.padded-title {
+  /* margin-top:16px; */
+  margin-bottom: 64px;
 }
 
 .take-quiz {

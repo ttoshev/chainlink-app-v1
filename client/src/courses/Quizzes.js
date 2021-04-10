@@ -52,7 +52,7 @@ const Quizzes = [
         courseCode: "MATH101",
         courseName: "Math 101",
         associatedLessonName: "Math Lesson 1 (Kids)", 
-        url: "",
+        url: "https://www.youtube.com/watch?v=igcoDFokKzU",
         courseDescription: "Evaluation of basic mathematical skills",
         questions: [
             {

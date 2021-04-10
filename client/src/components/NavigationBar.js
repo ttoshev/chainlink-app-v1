@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -84,6 +81,7 @@ const stylesXs = {
     },
     logo: {
         maxWidth: '32px',
+        maxHeight: '32px',
         borderRadius: 5,
     }
 }
@@ -110,6 +108,7 @@ const stylesLg = {
     },
     logo: {
         maxWidth: '64px',
+        maxHeight: '64px',
         borderRadius: 5,
         marginRight: 5
     }

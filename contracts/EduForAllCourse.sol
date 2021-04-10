@@ -1,6 +1,6 @@
 
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.6.2;
 // https://github.com/OpenZeppelin/openzeppelin-contracts.git
 // import "github.com/OpenZeppelin/openzeppelin-contracts/blob/243adff49ce1700e0ecb99fe522fb16cff1d1ddc/contracts/token/ERC721/ERC721.sol";
 // import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
@@ -93,11 +93,6 @@ contract EduForAllCourse is ERC721, Ownable {
     //     return string(abi.encodePacked(base, tokenId.toString()));
     // }
 
-
-
-
-
-    
     function requestCertificate (
         string memory code,
         string memory name,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import SimpleStorageContract from "../contracts/SimpleStorage.json";
 import EduForAllCourse from "../contracts/EduForAllCourse.json";
+import ReactPlayer from "react-player"
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -11,15 +12,24 @@ import Card from 'react-bootstrap/Card';
 import AnswerTypes from '../courses/AnswerTypes.js';
 import Button from 'react-bootstrap/Button';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+    faAngleDown,
+    faAngleUp
+} from '@fortawesome/free-solid-svg-icons'
+
 
 function Home(props) {
     const [contract, setContract] = useState(null)
     const [currentQuiz, setCurrentQuiz] = useState("");
+    const [openedCourse, setOpenedCourse] = useState(-1);
     const [currentQuestion, setCurrentQuestion] = useState(-1);
 	const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
+    const [showCourses, setShowCourses] = useState(-1);
     const [styles, setStyles] = useState({});
     const [textAnswer, setTextAnswer] = useState("");
+
 
     const defaultQuizState = {
         currentQuiz: "",
@@ -54,26 +64,6 @@ function Home(props) {
                     gas: 100000
                 }
             );
-            // contractInstance.deploy({
-            //     data: EduForAllCourse.bytecode,
-            //     arguments: [consts.KEYHASH] // default name
-            // })
-            // .then((deployedInstance) => {
-                // let qc = []
-                // for (var i = 0; i < Quizzes.length; i++ ){
-                //     deployedInstance.methods.checkCompletion(Quizzes[i].courseCode).call()
-                //     .then((complete) => {
-                //         qc.push({courseCode:Quizzes[i].courseCode , completed: complete})
-                //         if (i === (Quizzes.legnth - 1)) {
-                //             console.log("Retrieved all completion data.")
-                //             setQuizCompletions(qc)
-                //         }
-                //     })
-                //     .catch((e) => {
-                //         console.log("Error checking course completion")
-                //     })
-                // }
-            // })
 
             setContract(contractInstance);
             // runExample(contractInstance);
@@ -249,118 +239,170 @@ function Home(props) {
 
 
     if (!props.web3) {
-        return <div>Loading Web3, accounts, and contract...</div>;
+        return (
+            <div className="home">
+                <div>Loading Web3, accounts, and contract...</div>
+            </div>
+        );
     }
     return (
-        <div className="App">
-            <div style={styles.contract}>
+        <div className="home">
+            <div className="App">
+                <div style={styles.contract}>
+                    <Container>
+                        <Row>
+                            <Col textAlign='left'>
+                                <div className="how-it-works-section">
+                                    <h3> How it works:</h3>
+                                    <ol>
+                                        <li>
+                                            Explore our available courses and choose the one that interests you.
+                                        </li>
+                                        <li>
+                                            Complete the video lesson for that course.
+                                        </li>
+                                        <li>
+                                            Complete a short quiz to verify your knowledge.
+                                        </li>
+                                        <li>
+                                            Wait for the transaction to complete and earn an NFT!
+                                        </li>
+                                    </ol>
+                                </div> 
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
+
                 <Container>
                     <Row>
-                        <Col>
-                            {/* <div style={styles.paddedText}>Your name is: {storageValue}</div>
-                            <form onSubmit={handleSubmit}>
-                                <input type="text" value={newValue} onChange={handleChange}></input>
-                                <input type="submit" value="Submit"></input>
-                            </form> */}
+                        <Col xs={3}></Col>
+                        <Col xs={5} textAlign="right">
+                            <h2 className="padded-title">Explore courses </h2> 
                         </Col>
+                        <Col xs={1} textAlign="left"> 
+                            <div 
+                                onClick={() => {setShowCourses(showCourses*-1)}}
+                                style={{marginTop:'5%'}}
+                            >
+                                {(showCourses == -1) ? (
+                                    <FontAwesomeIcon icon={faAngleDown} size = '2x'/>
+                                ) : (
+                                    <FontAwesomeIcon icon={faAngleUp} size = '2x'/>
+                                )}
+                            </div>
+                        </Col>
+
+                        <Col xs={3}></Col>
+
                     </Row>
-                </Container>
-            </div>
-
-            <Container>
-                <Row>
-                    <Col xs={12}>
-                        <h2>Explore courses:</h2>
-                    </Col>
-                </Row>
-
-                <div className="courses">
-                    {Quizzes.map((quiz) => {
-                        return(
-                            <Row>
-                                <Col xs={12}>
-                                    <Card style={styles.card}>
-                                        
-                                        {(quiz === currentQuiz) ? 
-                                        (
-                                            (showScore) ? 
-                                            (
-                                                <Card.Body>
-                                                    <Card.Title>{quiz.courseName}: Quiz</Card.Title>
-                                                    <Card.Subtitle>
-                                                        You scored {score/quiz.questions.length*100}%!
-                                                    </Card.Subtitle>
-                                                    {
-                                                        (score < quiz.questions.length) ? (
-                                                            <div>
-                                                                <Card.Text>No NFT earned, please try again!</Card.Text>
-                                                                <Button  className="take-quiz" onClick={() => resetQuizState()}>Back</Button>
-                                                            </div>
-                                                            ) : (
-                                                            <div>
-                                                                <Card.Text>Congratulations! You will be credited for completing this course...</Card.Text>
-                                                                <Button  className="take-quiz" onClick={() => resetQuizState()}>Back</Button>
-                                                            </div>
-                                                        )
-                                                    }
-                                                </Card.Body>
-                                            ) : (
-                                                <Card.Body>
-                                                    <div className="inline">
-                                                    {
-                                                        (currentQuestion < 0) ? (
-                                                            <div></div>
-                                                        ): (
-                                                            <Button
-                                                                variant="danger"
-                                                                className="answer-btn"
-                                                                onClick={() => resetQuizState()}
-                                                            >
-                                                                Exit quiz
-                                                            </Button>
-                                                        )
-                                                    }
-                                                        <Card.Title className="centeredTitle">{quiz.courseName}: Quiz</Card.Title>
-                                                    </div>
-                                                    <Card.Subtitle className="mb-2 text-muted">
-                                                            Complete all questions to earn an NFT!
-                                                    </Card.Subtitle>
-                                                    <br/>
-                                                    <div style={styles.questionSection}>
-                                                        <p>Question {currentQuestion + 1}/{quiz.questions.length}</p>
-                                                        <div style={styles.question}>
-                                                            <p>{quiz.courseCode}</p>
-                                                            <p>{quiz.questions[currentQuestion].q}</p>
-                                                        </div>
-                                                    </div>
-                                                    <Answers quizQuestion={quiz.questions[currentQuestion]} isLast={(currentQuestion === (quiz.questions.length-1))}/>
-                                        
-                                                </Card.Body>
-                                        )
-                                        ) : (
-                                            <Card.Body>
+                    {(showCourses == 1) ? (
+                        <div className="courses">
+                            {Quizzes.map((quiz) => {
+                                return(
+                                    <Row>
+                                        <Col xs={12}>
+                                            <Card style={styles.card}>
                                                 
-                                                    <Card.Title className="centeredTitle">{quiz.courseName}</Card.Title>
-                                                    <Card.Subtitle className="mb-2 text-muted">
-                                                        <a href={quiz.url} target="_blank" rel="noopener noreferrer">
+                                                {(quiz === currentQuiz) ? 
+                                                (
+                                                    (showScore) ? 
+                                                    (
+                                                        <Card.Body>
+                                                            <Card.Title>{quiz.courseName}: Quiz</Card.Title>
+                                                            <Card.Subtitle>
+                                                                You scored {score/quiz.questions.length*100}%!
+                                                            </Card.Subtitle>
+                                                            {
+                                                                (score < quiz.questions.length) ? (
+                                                                    <div>
+                                                                        <Card.Text>No NFT earned, please try again!</Card.Text>
+                                                                        <Button  className="take-quiz" onClick={() => resetQuizState()}>Back</Button>
+                                                                    </div>
+                                                                    ) : (
+                                                                    <div>
+                                                                        <Card.Text>Congratulations! You will be credited for completing this course...</Card.Text>
+                                                                        <Button  className="take-quiz" onClick={() => resetQuizState()}>Back</Button>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        </Card.Body>
+                                                    ) : (
+                                                        <Card.Body>
+                                                            <div className="inline">
+                                                            {
+                                                                (currentQuestion < 0) ? (
+                                                                    <Card.Title className="centeredTitle">{quiz.courseName}: Quiz</Card.Title>
+                                                                ): (
+                                                                    <Container>
+                                                                        <Row>
+                                                                            <Col xs={2}>
+                                                                                <Button
+                                                                                    variant="danger"
+                                                                                    className="exit-quiz-btn"
+                                                                                    onClick={() => resetQuizState()}
+                                                                                    style={{marginLeft:'-10px'}}
+                                                                                >
+                                                                                    Exit quiz
+                                                                                </Button>
+                                                                            </Col>
+                                                                            <Col xs={8}>
+                                                                                <Card.Title className="centeredTitle">{quiz.courseName}: Quiz</Card.Title>
+                                                                            </Col>
+                                                                            <Col xs={2}>
+
+                                                                            </Col>
+                                                                        </Row>
+                                                                    </Container>
+                                                                )
+                                                            }
+                                                                
+                                                            </div>
+                                                            <Card.Subtitle className="mb-2 text-muted">
+                                                                    Complete all questions to earn an NFT!
+                                                            </Card.Subtitle>
+                                                            <br/>
+                                                            <div style={styles.questionSection}>
+                                                                <p>Question {currentQuestion + 1}/{quiz.questions.length}</p>
+                                                                <div style={styles.question}>
+                                                                    <p>{quiz.courseCode}</p>
+                                                                    <p>{quiz.questions[currentQuestion].q}</p>
+                                                                </div>
+                                                            </div>
+                                                            <Answers quizQuestion={quiz.questions[currentQuestion]} isLast={(currentQuestion === (quiz.questions.length-1))}/>
+                                                
+                                                        </Card.Body>
+                                                )
+                                                ) : (
+                                                    <Card.Body>
+                                                        <Card.Title className="centeredTitle">{quiz.courseName}</Card.Title>
+                                                        <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
+                                                        <Card.Text>
                                                             {quiz.associatedLessonName}
-                                                        </a>
-                                                    </Card.Subtitle>
-                                                    <Card.Text>
-                                                        {quiz.courseDescription}
-                                                    </Card.Text>
-                                                    <TakeQuizBtn quiz={quiz}/>
-                                                
-                                            </Card.Body>
- 
-                                        )}
-                                    </Card>
-                                </Col>
-                            </Row>
-                        )
-                    })}
-                </div>
-            </Container> 
+                                                        </Card.Text>
+                                                        <ReactPlayer
+                                                            className="centered-vid"
+                                                            url={quiz.url} 
+                                                            style={{maxWidth:'100%'}}
+                                                        />
+                                                        
+                                                        <Card.Text>
+                                                            {quiz.courseDescription}
+                                                        </Card.Text>
+                                                        <TakeQuizBtn quiz={quiz}/>
+                                                    </Card.Body>
+                                                )}
+                                            </Card>
+                                        </Col>
+                                    </Row>
+                                )
+                            })}
+                        </div>
+                    ) : (
+                        <div></div>
+                    )}
+                </Container> 
+            </div>
         </div>
     )
     
